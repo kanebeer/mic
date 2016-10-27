@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin:0; padding:0;}
+			.box{position: relative;}
+			ul{}
+			ul li{list-style: none; position: absolute; left:490px; top:300px; width:20px; height:20px; border-radius: 50%; background: #FFF; text-align: center;}
+			li:nth-child(1){transform:translateY(-285px) translateX(-5px);width:30px; height:30px; line-height: 30px;}
+			li:nth-child(2){transform:translateX(140px) translateY(-245px);}
+			li:nth-child(3){transform:translateX(242px) translateY(-142px);}
+			li:nth-child(4){transform:translateX(275px) translateY(-5px);width:30px; height:30px; line-height: 30px;}
+			li:nth-child(5){transform:translateX(242px) translateY(138px);}
+			li:nth-child(6){transform:translateX(138px) translateY(242px);}
+			li:nth-child(7){transform:translateY(275px) translateX(-5px);width:30px; height:30px; line-height: 30px;}
+			li:nth-child(8){transform:translateX(-140px) translateY(245px);}
+			li:nth-child(9){transform:translateX(-245px) translateY(143px);}
+			li:nth-child(10){transform:translateX(-285px) translateY(-5px);width:30px; height:30px; line-height: 30px;}
+			li:nth-child(11){transform:translateX(-245px) translateY(-140px);}
+			li:nth-child(12){transform:translateX(-140px) translateY(-245px);}
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<ul>
+				<li>12</li>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+				<li>10</li>
+				<li>11</li>
+				<li></li>	
+			</ul>
+		</div>
+		<canvas id="mycanvas" width="1000" height="800"></canvas>
+	</body>
+	<script>
+	window.onload = function(){
+		var cvs=document.getElementById("mycanvas")
+		var ctx = cvs.getContext("2d");
+		function clock(){
+			ctx.clearRect(0,0,1000,800); //清除画布
+	        var now = new Date();   //定义时间
+	        var sec = now.getSeconds();  //获取秒
+	        var minute = now.getMinutes();  //获取分钟
+	        var hour = now.getHours();   //获取小时
+	        hour = hour + minute/60;              
+	          //将24小时转换为12小时
+	        hour=hour>12?hour-12:hour;
+		
+			ctx.beginPath();
+			ctx.arc(500,310,300,0,2*Math.PI)
+			ctx.closePath()
+			ctx.lineWidth=2;
+			ctx.strokeStyle="#666"
+			ctx.stroke()
+			ctx.fillStyle="#5BC0DE"
+			ctx.fill()
+			
+			for(var i=0; i<60;i++){
+              ctx.save();
+              ctx.lineWidth=5;
+              ctx.strokeStyle="#000";
+              ctx.translate(500,310);
+              ctx.rotate(i*6*Math.PI/180);
+              ctx.beginPath();
+              ctx.arc(0,-280,5,0,2*Math.PI);                         
+              ctx.closePath();
+              ctx.restore();
+              ctx.fillStyle="#fff"
+			  ctx.fill()
+			}
+			
+			ctx.save()
+			ctx.translate(500,310);
+			ctx.lineWidth=5;
+			ctx.strokeStyle="#fff"
+			ctx.rotate(sec*6*Math.PI/180);
+			ctx.beginPath();
+			ctx.moveTo(0,0)
+			ctx.lineTo(0,-250)
+			ctx.stroke()
+			ctx.closePath()				
+			ctx.restore()
+	        ctx.save();
+	        
+			ctx.translate(500,310);
+			ctx.rotate(minute*6*Math.PI/180);		
+			ctx.beginPath();
+			ctx.moveTo(0,0)
+			ctx.lineTo(0,-180)
+			ctx.closePath()
+			ctx.lineWidth=5;
+			ctx.strokeStyle="#fff"
+			ctx.stroke()
+			ctx.restore()
+	        ctx.save();
+			
+			ctx.translate(500,310);
+			ctx.rotate(hour*30*Math.PI/180);		
+			ctx.beginPath();
+			ctx.moveTo(0,0)
+			ctx.lineTo(0,-116)
+			ctx.closePath()
+			ctx.lineWidth=5;
+			ctx.strokeStyle="#D2322D"
+			ctx.stroke()
+			ctx.restore()
+		}
+			clock();
+			setInterval(clock,1000);
+    }    
+	</script>
+</html>
